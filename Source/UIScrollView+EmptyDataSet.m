@@ -629,12 +629,16 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
         
         if (!view.superview) {
 
-            // Send the view to back, in case a header and/or footer is present
-            if (self.subviews.count > 1) {
-                [self insertSubview:view atIndex:1];
-            }
-            else {
-                [self addSubview:view];
+            if ([self isKindOfClass:[UICollectionView class]]) {
+                [self insertSubview:view atIndex:0];
+            } else {
+                // Send the view to back, in case a header and/or footer is present
+                if (self.subviews.count > 1) {
+                    [self insertSubview:view atIndex:1];
+                }
+                else {
+                    [self addSubview:view];
+                }
             }
         }
         
